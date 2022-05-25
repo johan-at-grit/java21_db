@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 
 import beans.actorBean;
+import helpers.jsonHelper;
 
 public class actors {
 	private Connection _connection;
@@ -37,17 +38,13 @@ public class actors {
 	}
 	
 	public String toJson() {
-		String pattern = "\"Actors\": [ %s ]";
-		String returnString = "";
-
-		String beansString = "";
+		String beansContent = "";
 		for (actorBean ab : this._actors) {
-			beansString += ab.toJson() + ",";
+			beansContent += ab.toJson() + ",";
 		}
-		beansString = beansString.substring(0, beansString.lastIndexOf(",")); //Removes last comma
 		
-		returnString = String.format(pattern, beansString);
-		return returnString;
+		return jsonHelper
+			.toJsonArray("Actors", beansContent);
 	}
 
  	private actorBean buildActor(ResultSet rs) {

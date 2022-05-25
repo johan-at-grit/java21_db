@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import beans.addressBean;
+import helpers.jsonHelper;
 
 public class addresses {
 	private Connection _connection;
@@ -43,17 +44,13 @@ public class addresses {
 	}
 
 	public String toJson() {
-		String pattern = "\"Addresses\": [ %s ]";
-		String returnString = "";
-
-		String beansString = "";
+		String beansContent = "";
 		for (addressBean ab : this._addresses) {
-			beansString += ab.toJson() + ",";
+			beansContent += ab.toJson() + ",";
 		}
-		beansString = beansString.substring(0, beansString.lastIndexOf(",")); //Removes last comma
-		
-		returnString = String.format(pattern, beansString);
-		return returnString;
+
+		return jsonHelper
+				.toJsonArray("Addresses", beansContent);
 	}
 	
  	private addressBean buildAddress(ResultSet rs) {

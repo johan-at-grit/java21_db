@@ -6,8 +6,8 @@ public class jsonHelper {
 	public static String toJsonArray(String ArrayLabel, String content) {
 		//Removes last comma
 		String lastCharacter = content
-				.substring(content.length() - 1);
-		if (lastCharacter == ",") {
+			.substring(content.length() - 1);
+		if (lastCharacter.equals(",")) {
 			content = content
 				.substring(0, content.lastIndexOf(","));
 		}

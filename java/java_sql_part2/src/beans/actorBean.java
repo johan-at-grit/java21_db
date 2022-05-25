@@ -1,5 +1,10 @@
 package beans;
 
+import java.util.ArrayList;
+
+import helpers.jsonHelper;
+import helpers.keyvaluepair;
+
 public class actorBean {
 	private int _id;
 	private String _name;
@@ -55,9 +60,11 @@ public class actorBean {
 	}
 	
 	public String toJson() {
-		String pattern = "{ \"Name\": \"%s\", \"Age\": %d, \"City\": \"%s\" }";
-		String returnString = String.format(pattern, this._name, this._age, this._hometown);	
-
-		return returnString;
+		ArrayList<keyvaluepair> dataList = new ArrayList<keyvaluepair>();
+		dataList.add(new keyvaluepair("Name", this._name));
+		dataList.add(new keyvaluepair("Age", Integer.toString(this._age)));
+		dataList.add(new keyvaluepair("City", this._hometown));
+		
+		return jsonHelper.toJsonObject(dataList);
 	}
 }
